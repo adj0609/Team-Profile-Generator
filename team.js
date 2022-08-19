@@ -1,12 +1,11 @@
 const inquirer = require('inquirer');
-const Manager = require('.lib/Manager');
+const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
-const generateSite = require('.lib/generateSite');
+const generateTeam = require('./lib/generate-team');
 const path = require('path');
-const Output_DIR = path.resolve(__dirname, 'output');
-const outPath = path.join(OUTPUT_dir, "team.html");
+
 const teamMembers = [];
 
 const promptManager = () => {
@@ -16,7 +15,7 @@ const promptManager = () => {
             name: 'name',
             message: 'What is your name? (Required)',
             validate: nameInput => {
-                if (nameInpute) {
+                if (nameInput) {
                     return true;
                 } else {
                     console.log('Please enter a valid Name!');
@@ -71,13 +70,13 @@ const promptManager = () => {
     })
 };
 
-const groupMenu = () => {
+const promptMenu = () => {
     return inquirer.prompt([
         {
             type: 'list',
             name: 'menu',
             message: 'Which option do you prefer?',
-            choices: ['add engineer', 'add intern', 'My team is finished']
+            choices: ['add Engineer', 'add intern', 'My team is finished']
         }])
         .then(userChoice => {
             switch (userChoice.menu) {
@@ -88,7 +87,8 @@ const groupMenu = () => {
                     promptIntern();
                     break;
                 default:
-                    buildTeam();
+                    console.log(userChoice, '90')
+                    buildTeam(teamMembers);
             }
         });
 };
@@ -100,52 +100,52 @@ const promptEngineer = () => {
    ================
    `);
 
-   return inquirer.prompt([
-    {
-        type: 'input',
-        name: 'name',
-        message: 'What is your Engineers Name? (Required)',
-        validate: engineerName => {
-            if (engineerName) {
-                return true;
-            } else {
-                console.log('Please enter a valid Engineer Name');
-                return false;
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is your Engineers Name? (Required)',
+            validate: engineerName => {
+                if (engineerName) {
+                    return true;
+                } else {
+                    console.log('Please enter a valid Engineer Name');
+                    return false;
+                }
             }
-        }
-    },
+        },
 
-    {
-        type: 'input',
-        name: 'employeeId',
-        message: 'What is your Employee Id? (Required)',
-        validate: employeeId => {
-            if (employeeId) {
-                return true;
-            } else {
-                console.log('Please enter a valid Employee Id');
-                return false;
+        {
+            type: 'input',
+            name: 'employeeId',
+            message: 'What is your Employee Id? (Required)',
+            validate: employeeId => {
+                if (employeeId) {
+                    return true;
+                } else {
+                    console.log('Please enter a valid Employee Id');
+                    return false;
+                }
             }
-        }
-    },
-    {
-        type: 'input',
-        name: 'Github username',
-        message: 'What is your Github username? (Required)',
-        validate: userName => {
-            if (userName) {
-                return true;
-            } else {
-                console.log('Please enter a valid username');
-                return false;
+        },
+        {
+            type: 'input',
+            name: 'Github username',
+            message: 'What is your Github username? (Required)',
+            validate: userName => {
+                if (userName) {
+                    return true;
+                } else {
+                    console.log('Please enter a valid username');
+                    return false;
+                }
             }
-        }
-    },
+        },
     ]).then(answers => {
-         console.log(answers);
-         const engineer = new Engineer(answers.name, answers.employeeId, answers.email, answers.userName);
-         teamMembers.push(engineer);
-         promptMenu();
+        console.log(answers);
+        const engineer = new Engineer(answers.name, answers.employeeId, answers.email, answers.userName);
+        teamMembers.push(engineer);
+        promptMenu();
     })
 };
 
@@ -196,26 +196,44 @@ const promptIntern = () => {
                 }
             }
         },
-        ]).then(answers => {
-             console.log(answers);
-             const intern = new Intern(answers.name, answers.employeeId, answers.email, answers.School);
-             teamMembers.push(intern);
-             promptMenu();
-        })
-    };
+    ]).then(answers => {
+        console.log(answers);
+        const intern = new Intern(answers.name, answers.employeeId, answers.email, answers.School);
+        teamMembers.push(intern);
+        console.log(teamMembers, '202')
+        promptMenu();
+    })
+};
 
-    const buildTeam = () => {
-        console.log(`
+const buildTeam = (teamMembers) => {
+    console.log(teamMembers, '208')
+    console.log(`
         =============
         Buid My Team!
         =============
-    `);
-// end of build team //
+    `)
+    fs.writeFile('./dist/index.html', generateTeam(teamMembers), "utf-8", err => {
+        console.log(teamMembers, '215');
+        if (err) {
+            console.log(err)
+            return
+        } else {
+            console.log('sucess')
+        }
+    });
 
-if (!false.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR)
-    }
-    false.writeFileSync(outputPath, generateSite(teamMembers), "utf-8");
+    ;
+    // end of build team //
+
 }
-
 promptManager();
+
+
+
+
+
+
+
+
+
+
