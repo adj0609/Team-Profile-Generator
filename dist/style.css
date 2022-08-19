@@ -1,0 +1,58 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Times New Roman', Times, serif;
+  }
+  
+  header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    background-color: aqua;
+  }
+  
+  header h1 {
+    color: white;
+    font-size: 25px;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #team-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  #employee-card {
+    background-color: rosybrown;
+    width: 195px;
+    border-radius: 5px;
+    margin: 15px 15px;
+    box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.1);
+  }
+
+
+  #head-container {
+    height: 70px;
+    background-color: rgb(0, 106, 255);
+    color:beige;
+    display: flex;
+  }
+  #card-head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #role {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+  }
+  
