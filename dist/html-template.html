@@ -9,7 +9,7 @@ module.exports = (employeeArr) => {
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="/dist/style.css" />
-      <title>Team Profiles</title>
+      <title>Team Generator</title>
     </head>
     <body>
       <header>
@@ -22,11 +22,6 @@ module.exports = (employeeArr) => {
               <div id="card-head">
                 <h3>${name}</h3>
                 <div id="role">
-                  <img
-                    src="../dist/images/manager-icon.png"
-                    alt="Icon of a coffee cup"
-                  />
-                  <h4>${role}</h4>
                 </div>
               </div>
             </div>
@@ -49,10 +44,6 @@ module.exports = (employeeArr) => {
               <div id="card-head">
                 <h3>${engineer.name}</h3>
                 <div id="role">
-                  <img
-                    src="../dist/images/engineer-icon.png"
-                    alt="Icon of a gear"
-                  />
                   <h4>${engineer.role}</h4>
                 </div>
               </div>
@@ -85,10 +76,6 @@ module.exports = (employeeArr) => {
               <div id="card-head">
                 <h3>${intern.name}</h3>
                 <div id="role">
-                  <img
-                    src="../dist/images/intern-icon.png"
-                    alt="Icon of a graduation hat"
-                  />
                   <h4>${intern.role}</h4>
                 </div>
               </div>
